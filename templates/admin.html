@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+	<title>Admin panel-Sentinel</title>
+</head>
+<body>
+	<div id="container">
+		<div class="title">
+			<h1>Admin Panel - Sentinel</h1>
+		</div>
+	</div>
+	<div id="container">
+		<div class="title"><h1>Create a new product<h1></div>
+		<div id="content">
+                <form name="myForm1" method="post" action="{{ url_for('create_product') }}" onsubmit="return validateForm()">
+                  <label for="Product name">Please enter your Product title:</label>
+                  <input type="text" name="prodname" /><br />
+                  <label for="Product Description">Please enter the Description of the product:</label>
+                  <input type="text" name="proddesc" /><br />
+                  <button id="button" type="submit">Submit</button>
+                </form>
+            </div>
+	</div>
+</body>
+</html>

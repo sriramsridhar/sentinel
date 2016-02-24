@@ -1,0 +1,58 @@
+ <html>
+    <head>
+        <title>Sentinel</title>
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        
+        <div id="container">
+            <div class="title">
+                <h1>Sentinel-Sentimental analysis for customer comments</h1>
+            </div>
+            
+            </div>
+        <div id="container">
+                <div class="title"><h1>{{product.prod_id}}.{{product.Prod_title}}</h1></div>
+                <div class="content">
+                    Description : {{product.Prod_desc}}
+                    Created Time : {{product.time}}
+                    Product positive sentiment : {{product.prod_p_value}}
+                    Product negative sentiment : {{product.prod_n_value}}
+                    {% if check == "Y" %}
+                    {% include 'comment.html' %}
+                    {% endif %}
+                    {%if check == "N" %}
+                    {% include 'notavail.html' %}
+                    {% endif %}
+                    
+                </div>
+                </div>
+        <div id="container">
+                <div class="title"><h1>Add comment</h1></div>
+                <div class="content">
+                    <form name="myForm1" method="post" action="{{ url_for('addcomment',variable=product.prod_id) }}" onsubmit="return validateForm()">
+                  <label for="commentsection">Please enter your comment:</label>
+                  <input type="text" name="comment" /><br />
+                  <button id="button" type="submit">Submit</button>
+                </form>
+                </div>
+        </div>
+        <div id="container"><footer><p style="text-align:center;">This site is designed by Joshua &#38; Sridhar &#169; 2016</p></footer></div>
+       <script type="text/javascript">
+      function validateForm() {
+    var x = document.forms["myForm1"]["comment"].value;
+    if (x == null || x == "") {
+        alert("comment must be filled out");
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+
+}
+    </script>
+
+    </body>
+</html>
+

@@ -1,0 +1,6 @@
+<div id="container">
+    {% for item in comment%}
+    <div class="container">{{item.time}} : {{item.cmmnt_content}}<br />Comment Type : {{item.cmmnt_type}} <br />Postive sentiment score : {{item.p_value}}<br />Negative sentiment score : {{item.n_value}}<br /><br /></div>
+    {%endfor%}
+
+</div>
