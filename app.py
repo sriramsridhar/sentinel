@@ -8,6 +8,8 @@ app = Flask(__name__)
 
 @app.route('/admin/')
 def admin():
+    check=dbcon.Product.select().count()
+    
     return render_template('admin.html')
 
 @app.route('/create_product/',methods=['POST'])
