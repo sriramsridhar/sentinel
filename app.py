@@ -6,11 +6,39 @@ import unicodedata
 from senti_classifier import senti_classifier
 app = Flask(__name__)
 
+def give_stats():
+    check=dbcon.Product.select().count()
+    result = dbcon.Product.select().order_by(dbcon.Product.prod_id)
+    j=[]
+    for i in result:
+        ccount=dbcon.Comments.select().where(dbcon.Comments.article_id == i.prod_id).count()
+        comment_parse=dbcon.Comments.select().where(dbcon.Comments.article_id == i.prod_id)
+        pcount=ncount=0
+        for t in comment_parse:
+            if t.p_value>t.n_value:
+                pcount=pcount+1
+            else:
+                ncount=ncount+1
+        k={'id':i.prod_id,'prod':i.Prod_title,'time':i.time,'desc':i.Prod_desc,'p_value':i.prod_p_value,'n_value':i.prod_n_value,'comment_count':ccount,'pcount':pcount,'ncount':ncount}
+        j.append(k)
+    return j,check
+
+
+# def graph():
+#     result=dbcon.Product.select().order_by(dbcon.Product.prod_id)
+#     pos_data=neg_data=""
+#     column_name=[]
+#     for i in result:
+#         column_name.append('"'+i.Prod_title+'"')
+#         pos_data+=str(i.prod_p_value)+","
+#         neg_data+=str(i.prod_n_value)+","
+#     return column_name,pos_data[:-1],neg_data[:-1]
+
 @app.route('/admin/')
 def admin():
-    check=dbcon.Product.select().count()
-    
-    return render_template('admin.html')
+    data,check=give_stats()
+    # column_name,p_data,n_data=graph()
+    return render_template('admin.html', data=data, check=check)
 
 @app.route('/create_product/',methods=['POST'])
 def create_product():
@@ -35,6 +63,13 @@ def prod(variable):
     cresult=dbcon.Comments.select().where(dbcon.Comments.article_id == variable)
     return render_template('form_action.html',product=presult[0],comment=cresult,check=check)
 
+@app.route('/delproduct/<int:variable>')
+def delproduct(variable):
+    query=dbcon.Product.delete().where(dbcon.Product.prod_id == variable)
+    query.execute()
+    cmtdeletequery=dbcon.Comments.delete().where(dbcon.Comments.article_id == variable)
+    cmtdeletequery.execute
+    return render_template('delete_success.html')
 @app.route('/addcomment/<int:variable>',methods=['POST'])
 def addcomment(variable):
     cmmnt1=[]
@@ -60,8 +95,10 @@ def addcomment(variable):
     content="Comment"
     return render_template('success.html',content=content)
 
+
 @app.route('/')
-def form():
+@app.route('/index/')
+def index():
     count=dbcon.Product.select().count()
     result = dbcon.Product.select().order_by(dbcon.Product.prod_p_value.desc())
     return render_template('form_submit.html',count=count,result=result)

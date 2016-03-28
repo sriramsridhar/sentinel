@@ -3,12 +3,16 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+	<script src="{{ url_for('static', filename='Chart.js') }}"></script>
 	<title>Admin panel-Sentinel</title>
 </head>
 <body>
 	<div id="container">
 		<div class="title">
 			<h1>Admin Panel - Sentinel</h1>
+		</div>
+		<div id="content">
+			<a href="{{ url_for('index') }}"><button>Back to Index</button></a>
 		</div>
 	</div>
 	<div id="container">
@@ -26,8 +30,27 @@
 	<div id="container">
 		<div class="title"><h1>Statistics<h1></div>
 		<div id="content">
-                <p></p>
+		<p>Total number of products : {{check}}</p>	
+		 
+                {%for i in data%}
+                <div id="container">
+		<a href="{{url_for('prod', variable=i['id'])}}"><div class="title"><h1>{{i['id']}}.{{i['prod']}}</h1></div></a>
+		<div id="content">
+                <p>Time published : {{i['time']}}</p>
+                <p>Description : {{i['desc']}}</p>
+                <p>Product postive value : {{i['p_value']}} Product negative value : {{i['n_value']}}</p>
+                <p>Total Comments : {{i['comment_count']}} Postive Comments : {{i['pcount']}} Negative Comments : {{i['ncount']}}</p>
+                <a href="{{url_for('delproduct',variable=i['id'])}}"><button>Delete product</button></a>
             </div>
+            </div>
+            {%endfor%}
+            <p>{{column_name}}</p>
+            <p>{{p_data}}</p>
+            <p>{{n_data}}</p>
 	</div>
+               
+	</div>
+
 </body>
+
 </html>
