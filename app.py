@@ -23,21 +23,9 @@ def give_stats():
         j.append(k)
     return j,check
 
-
-# def graph():
-#     result=dbcon.Product.select().order_by(dbcon.Product.prod_id)
-#     pos_data=neg_data=""
-#     column_name=[]
-#     for i in result:
-#         column_name.append('"'+i.Prod_title+'"')
-#         pos_data+=str(i.prod_p_value)+","
-#         neg_data+=str(i.prod_n_value)+","
-#     return column_name,pos_data[:-1],neg_data[:-1]
-
 @app.route('/admin/')
 def admin():
     data,check=give_stats()
-    # column_name,p_data,n_data=graph()
     return render_template('admin.html', data=data, check=check)
 
 @app.route('/create_product/',methods=['POST'])
@@ -70,6 +58,7 @@ def delproduct(variable):
     cmtdeletequery=dbcon.Comments.delete().where(dbcon.Comments.article_id == variable)
     cmtdeletequery.execute
     return render_template('delete_success.html')
+
 @app.route('/addcomment/<int:variable>',methods=['POST'])
 def addcomment(variable):
     cmmnt1=[]
@@ -78,7 +67,9 @@ def addcomment(variable):
     p,n = senti_classifier.polarity_scores(cmmnt1)
     if p>n:
         t="positive"
-    else:
+    if p==n:
+        t="neutral"
+    if p<n:
         t="negative"
     dbcon.Comments.create(time = datetime.datetime.now(),article_id=variable,cmmnt_type = t,cmmnt_content = cmmnt,p_value = p,n_value=n)
     count=dbcon.Comments.select().where(dbcon.Comments.article_id == variable).count()
@@ -108,6 +99,6 @@ def not_found(exc):
     return Response('<h3>Not found</h3>'), 404
 if __name__ == '__main__':
 	app.jinja_env.cache = {}
-	app.run(debug=True,host="0.0.0.0")
+	app.run(debug=True,host="0.0.0.0",threaded=True)
 
 

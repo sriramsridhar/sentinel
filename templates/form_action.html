@@ -32,28 +32,15 @@
         <div id="container">
                 <div class="title"><h1>Add comment</h1></div>
                 <div class="content">
-                    <form name="myForm1" method="post" action="{{ url_for('addcomment',variable=product.prod_id) }}" onsubmit="return validateForm()">
+                    <form name="myForm1" method="post" action="{{ url_for('addcomment',variable=product.prod_id) }}" >
                   <label for="commentsection">Please enter your comment:</label>
-                  <input type="text" name="comment" /><br />
+                  <input type="text" name="comment" required autocomplete="off"/><br />
                   <button id="button" type="submit">Submit</button>
                 </form>
                 </div>
         </div>
         <div id="container"><footer><p style="text-align:center;">This site is designed by Joshua &#38; Sridhar &#169; 2016</p></footer></div>
-       <script type="text/javascript">
-      function validateForm() {
-    var x = document.forms["myForm1"]["comment"].value;
-    if (x == null || x == "") {
-        alert("comment must be filled out");
-        return false;
-    }
-    else
-    {
-        return true;
-    }
-
-}
-    </script>
+       
 
     </body>
 </html>

@@ -19,9 +19,9 @@
 		<div id="content">
                 <form name="myForm1" method="post" action="{{ url_for('create_product') }}" onsubmit="return validateForm()">
                   <label for="Product name">Please enter your Product title:</label>
-                  <input type="text" name="prodname" /><br />
+                  <input type="text" name="prodname" required autocomplete="off" /><br />
                   <label for="Product Description">Please enter the Description of the product:</label>
-                  <input type="text" name="proddesc" /><br />
+                  <input type="text" name="proddesc" required autocomplete="off" /><br />
                   <button id="button" type="submit">Submit</button>
                 </form>
             </div>
