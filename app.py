@@ -3,7 +3,7 @@ import dbcon
 import itertools
 import datetime
 import unicodedata
-from senti_classifier import senti_classifier
+from sentinel_engine import senti_classifier
 app = Flask(__name__)
 
 def give_stats():
