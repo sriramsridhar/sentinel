@@ -13,13 +13,15 @@ def give_stats():
     for i in result:
         ccount=dbcon.Comments.select().where(dbcon.Comments.article_id == i.prod_id).count()
         comment_parse=dbcon.Comments.select().where(dbcon.Comments.article_id == i.prod_id)
-        pcount=ncount=0
+        pcount=ncount=neutcount=0
         for t in comment_parse:
             if t.p_value>t.n_value:
                 pcount=pcount+1
+            if t.p_value==t.n_value:
+                neutcount=neutcount+1
             else:
                 ncount=ncount+1
-        k={'id':i.prod_id,'prod':i.Prod_title,'time':i.time,'desc':i.Prod_desc,'p_value':i.prod_p_value,'n_value':i.prod_n_value,'comment_count':ccount,'pcount':pcount,'ncount':ncount}
+        k={'id':i.prod_id,'prod':i.Prod_title,'time':i.time,'desc':i.Prod_desc,'p_value':i.prod_p_value,'n_value':i.prod_n_value,'comment_count':ccount,'pcount':pcount,'ncount':ncount, 'neutcount':neutcount}
         j.append(k)
     return j,check
 
