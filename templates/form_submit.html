@@ -19,7 +19,7 @@
             <p>Showing {{count}} number of products</p>
             {% for item in result %}
                <div id="container">
-                    <a href="{{url_for('prod', variable=item.prod_id)}}"><div class="title"><h1>{{item.prod_id}}.{{item.Prod_title}}</h1></div></a>
+                    <a href="{{url_for('prod', variable=item.prod_id)}}"><div class="title"><h1>{{item.Prod_title}}</h1></div></a>
                    <div id="content">Description:{{item.Prod_desc}}<br />Time:{{item.time}}<br />Product positive sentiment:{{item.prod_p_value}} <br />Product negative sentiment:{{item.prod_n_value}}</div>
 
                </div> 

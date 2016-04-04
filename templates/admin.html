@@ -33,7 +33,7 @@
 		 
                 {%for i in data%}
                 <div id="container">
-		<a href="{{url_for('prod', variable=i['id'])}}"><div class="title"><h1>{{i['id']}}.{{i['prod']}}</h1></div></a>
+		<a href="{{url_for('prod', variable=i['id'])}}"><div class="title"><h1>{{i['prod']}}</h1></div></a>
 		<div id="content">
                 <p>Time published : {{i['time']}}</p>
                 <p>Description : {{i['desc']}}</p>
