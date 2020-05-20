@@ -6,7 +6,7 @@ decorator==3.4.0
 defer==1.0.6
 dirspec==13.10
 Flask==0.10.1
-httplib2==0.8
+httplib2==0.18.0
 itsdangerous==0.24
 Jinja2==2.8
 lxml==3.3.3
