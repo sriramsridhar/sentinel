@@ -46,6 +46,6 @@ software-center-aptd-plugins==0.0.0
 system-service==0.1.6
 Twisted-Core==13.2.0
 Twisted-Web==13.2.0
-urllib3==1.7.1
+urllib3==1.26.5
 Werkzeug==0.11.5
 zope.interface==4.0.5
